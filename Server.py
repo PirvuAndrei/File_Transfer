@@ -14,8 +14,16 @@ print("The Server is running and is listening to clients requests")
 
 conn, adress = sock.accept()
 
-message = "Hey there is something import for you"
+try:
+    fileName = conn.recv(1024)
+    file = open(fileName, 'rb')
+    readFile = file.read()
+    conn.send(readFile)
 
-conn.send(message.encode())
+    file.close()
+
+except:
+
+    conn.send("File Not Found on the Server".encode())
 
 conn.close()
