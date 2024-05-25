@@ -17,6 +17,23 @@ def receive():
     main.configure(bg="#f4fdfe")
     main.resizable(False, False)
 
+
+    def receiver():
+        ID = SenderID.get()
+        filename1 = incoming_file.get()
+
+        s = socket.socket()
+        port = 8081
+        s.connect((ID, port))
+        file = open(filename1, 'wb')
+        file_data = s.recv(1024)
+        file.write(file_data)
+        file.close()
+
+        print("File has been received successfully")
+
+
+
     image_icon1 = PhotoImage(file="fileimages/receive.png")
     main.iconphoto(False, image_icon1)
 
@@ -41,7 +58,7 @@ def receive():
 
 
     imageicon = PhotoImage(file="fileimages/arrow.png")
-    rr = Button(main, text="Receive", compound=LEFT, image=imageicon, width=130, bg="#39c790",font="arial 14 bold")
+    rr = Button(main, text="Receive", compound=LEFT, image=imageicon, width=130, bg="#39c790",font="arial 14 bold",command=receiver)
     rr.place(x=20, y=500)
 
 
